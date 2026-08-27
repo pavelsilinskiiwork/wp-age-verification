@@ -1,0 +1,111 @@
+/* Overlay - covers the whole screen */
+.wav-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 999999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.85); /* overridden by inline style from settings */
+}
+
+body.wav-lock {
+    overflow: hidden;
+}
+
+/* Popup container */
+.wav-popup {
+    max-width: 480px;
+    width: 90%;
+    padding: 40px;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.35);
+}
+
+/* Light theme */
+.wav-style-light .wav-popup {
+    background: #ffffff;
+    color: #1a1a1a;
+}
+
+/* Dark theme */
+.wav-style-dark .wav-popup {
+    background: #1a1a1a;
+    color: #ffffff;
+}
+
+.wav-title {
+    margin: 0 0 16px;
+    font-size: 24px;
+    line-height: 1.3;
+}
+
+.wav-description {
+    margin: 0 0 24px;
+    font-size: 15px;
+    line-height: 1.5;
+}
+
+/* Buttons */
+.wav-btn {
+    display: inline-block;
+    padding: 12px 32px;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    margin: 8px;
+}
+
+.wav-btn-yes {
+    background: #2271b1;
+    color: #fff;
+}
+
+.wav-btn-no {
+    background: transparent;
+    color: inherit;
+    border: 1px solid currentColor;
+}
+
+/* Date input */
+#wav-birthdate {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-bottom: 16px;
+    box-sizing: border-box;
+}
+
+/* Error */
+.wav-error {
+    color: #d63638;
+    font-size: 14px;
+    margin-bottom: 12px;
+}
+
+/* Blocked state */
+.wav-blocked p {
+    margin: 0;
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+    .wav-popup {
+        padding: 24px 16px;
+    }
+
+    .wav-btn {
+        display: block;
+        width: 100%;
+        margin: 8px 0;
+    }
+}
