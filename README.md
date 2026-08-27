@@ -1,4 +1,4 @@
-# WP Age Verification
+# Age Verification by Pavel Silinskii
 
 ![WordPress](https://img.shields.io/badge/WordPress-5.8%2B-21759B?logo=wordpress&logoColor=white)
 ![PHP](https://img.shields.io/badge/PHP-7.4%2B-777BB4?logo=php&logoColor=white)
@@ -36,19 +36,19 @@ Age verification popup for WordPress. Shows a verification gate when a visitor e
 - **Content scope** — the entire site, or only selected pages and categories
 - **Decline action** — block the page with a message, or redirect to a URL
 - **Server-side age validation** — the birth date is validated and the age recalculated in PHP, not trusted from the browser
-- **Remembered choice** — a single `wav_verified` cookie with configurable duration
+- **Remembered choice** — a single `avps_verified` cookie with configurable duration
 - **Light / dark popup styles** and a custom overlay color
-- **Fully translatable** — text domain `wp-age-verification`, `.pot` included
+- **Fully translatable** — text domain `age-verification-by-pavel-silinskii`, `.pot` included
 - **Clean uninstall** — the single option row is removed on delete
 
 ---
 
 ## How It Works
 
-1. On every front-end request `WAV_Frontend::should_show_popup()` decides whether the gate is needed (plugin enabled, no valid cookie, current URL in scope).
+1. On every front-end request `AVPS_Frontend::should_show_popup()` decides whether the gate is needed (plugin enabled, no valid cookie, current URL in scope).
 2. If needed, the popup markup is printed in `wp_footer` and the assets are enqueued.
-3. The visitor confirms (or submits a birth date). The browser sends an AJAX request to `admin-ajax.php` (`action=wav_verify`).
-4. `WAV_Frontend::handle_verify()` checks the nonce, validates the input server-side, and on success sets the `wav_verified` cookie.
+3. The visitor confirms (or submits a birth date). The browser sends an AJAX request to `admin-ajax.php` (`action=avps_verify`).
+4. `AVPS_Frontend::handle_verify()` checks the nonce, validates the input server-side, and on success sets the `avps_verified` cookie.
 5. On the next page load the cookie is present and the popup is not shown until it expires.
 
 ---
@@ -58,7 +58,7 @@ Age verification popup for WordPress. Shows a verification gate when a visitor e
 ### Manual
 
 1. Download or clone this repository.
-2. Upload the `wp-age-verification` folder to `/wp-content/plugins/`.
+2. Upload the `age-verification-by-pavel-silinskii` folder to `/wp-content/plugins/`.
 3. Activate the plugin in **WordPress Admin → Plugins**.
 4. Go to **Settings → Age Verification** to configure it.
 
@@ -66,7 +66,7 @@ Age verification popup for WordPress. Shows a verification gate when a visitor e
 
 ```bash
 cd wp-content/plugins
-git clone https://github.com/pavelsilinskiiwork/wp-age-verification.git
+git clone https://github.com/pavelsilinskiiwork/age-verification-by-pavel-silinskii.git
 ```
 
 Then activate in **WordPress Admin → Plugins**.
@@ -101,7 +101,9 @@ The visitor enters a date in a native date picker. On submit the server:
 
 1. Validates the date (`checkdate`, `YYYY-MM-DD`).
 2. Computes full years between that date and today (`DateTime::diff`).
-3. Grants access (sets the cookie) if the age is at least the configured minimum, otherwise returns an error message shown inline in the popup.
+3. Grants access (sets the cookie) if the age is at least the configured minimum.
+
+If the visitor is under age, the popup shows the error, disables the date input, and replaces the button with a **Refresh page** action — the gate cannot be retried. A malformed or empty date just shows a validation error and stays editable.
 
 There is no block/redirect in this mode — an underage visitor simply cannot pass the gate.
 
@@ -129,7 +131,7 @@ Applies to the **Buttons** mode when the visitor clicks **No**.
 
 ## Settings Reference
 
-Stored as a single option, key `wav_settings`.
+Stored as a single option, key `avps_settings`.
 
 | Key | Type | Default | Description |
 |---|---|---|---|
@@ -168,21 +170,21 @@ This website contains age-restricted content. By entering, you accept our terms 
 
 | Action | Auth | Handler |
 |---|---|---|
-| `wav_verify` | Public (`nopriv` + logged-in) | `WAV_Frontend::handle_verify()` |
+| `avps_verify` | Public (`nopriv` + logged-in) | `AVPS_Frontend::handle_verify()` |
 
 **Request (buttons):**
 
 ```
-action=wav_verify
-nonce=<wav_nonce>
+action=avps_verify
+nonce=<avps_nonce>
 confirmed=true|false
 ```
 
 **Request (birthdate):**
 
 ```
-action=wav_verify
-nonce=<wav_nonce>
+action=avps_verify
+nonce=<avps_nonce>
 birthdate=YYYY-MM-DD
 ```
 
@@ -198,7 +200,13 @@ birthdate=YYYY-MM-DD
 { "success": false, "data": { "action": "block",    "message": "..." } }
 { "success": false, "data": { "action": "redirect", "url": "https://..." } }
 { "success": false, "data": { "action": "error",    "message": "..." } }
+{ "success": false, "data": { "action": "error",    "message": "...", "lock": true } }
 ```
+
+`lock: true` is returned only for the underage case in birth-date mode. The
+client then disables the date field and swaps the submit button for a
+**Refresh page** action, so the visitor cannot keep retrying the same gate.
+A plain `error` (empty or malformed date) leaves the field editable.
 
 ---
 
@@ -206,9 +214,9 @@ birthdate=YYYY-MM-DD
 
 | Measure | Where |
 |---|---|
-| `check_ajax_referer( 'wav_nonce' )` | `handle_verify()` |
+| `check_ajax_referer( 'avps_nonce' )` | `handle_verify()` |
 | `current_user_can( 'manage_options' )` | `save_settings()` |
-| `check_ajax_referer( 'wav_admin_nonce' )` | `save_settings()` |
+| `check_ajax_referer( 'avps_admin_nonce' )` | `save_settings()` |
 | `sanitize_text_field()` / `sanitize_textarea_field()` | all text settings |
 | `absint()` | `minimum_age`, `cookie_duration`, page/category IDs |
 | `esc_url_raw()` | `redirect_url` |
@@ -221,17 +229,17 @@ birthdate=YYYY-MM-DD
 ## Project Structure
 
 ```
-wp-age-verification/
-├── wp-age-verification.php        # Main plugin file, constants, hooks
+age-verification-by-pavel-silinskii/
+├── age-verification-by-pavel-silinskii.php        # Main plugin file, constants, hooks
 ├── readme.txt                     # WordPress.org readme
 ├── README.md                      # This file
-├── uninstall.php                  # Removes the wav_settings option
+├── uninstall.php                  # Removes the avps_settings option
 ├── includes/
-│   ├── class-wav-settings.php     # Settings get/get_all/save/defaults
-│   ├── class-wav-frontend.php     # Popup logic + AJAX verification
-│   └── class-wav-installer.php    # Activation / deactivation
+│   ├── class-avps-settings.php     # Settings get/get_all/save/defaults
+│   ├── class-avps-frontend.php     # Popup logic + AJAX verification
+│   └── class-avps-installer.php    # Activation / deactivation
 ├── admin/
-│   ├── class-wav-admin.php        # Settings page + AJAX save
+│   ├── class-avps-admin.php        # Settings page + AJAX save
 │   └── views/
 │       └── settings-page.php      # Settings screen markup
 ├── templates/
@@ -239,13 +247,13 @@ wp-age-verification/
 │   └── popup-birthdate.php        # Date of birth popup
 ├── assets/
 │   ├── css/
-│   │   ├── wav-frontend.css       # Popup styles (light/dark, responsive)
-│   │   └── wav-admin.css          # Settings page styles
+│   │   ├── avps-frontend.css       # Popup styles (light/dark, responsive)
+│   │   └── avps-admin.css          # Settings page styles
 │   └── js/
-│       ├── wav-frontend.js        # Popup behavior, fetch, validation
-│       └── wav-admin.js           # Conditional fields, AJAX save
+│       ├── avps-frontend.js        # Popup behavior, fetch, validation
+│       └── avps-admin.js           # Conditional fields, AJAX save
 └── languages/
-    └── wp-age-verification.pot    # Translation template
+    └── age-verification-by-pavel-silinskii.pot    # Translation template
 ```
 
 ---
@@ -254,8 +262,8 @@ wp-age-verification/
 
 The plugin stores:
 
-- **One option row** (`wav_settings`) in the database — removed on uninstall.
-- **One cookie** (`wav_verified`) in the visitor's browser — `httpOnly`, `Secure` when the site is HTTPS, lifetime configurable.
+- **One option row** (`avps_settings`) in the database — removed on uninstall.
+- **One cookie** (`avps_verified`) in the visitor's browser — `httpOnly`, `Secure` when the site is HTTPS, lifetime configurable.
 
 No personal data (including the submitted birth date) is stored or logged.
 
@@ -278,7 +286,7 @@ No personal data (including the submitted birth date) is stored or logged.
 | 4 | Click **No**, action = `block` | Page blocked with message |
 | 5 | Click **No**, action = `redirect` | Redirected to the URL |
 | 6 | Birth date, age ≥ minimum | Access granted |
-| 7 | Birth date, age < minimum | Error message shown |
+| 7 | Birth date, age < minimum | Error shown, date field disabled, button becomes **Refresh page** |
 | 8 | Birth date, empty / invalid | Validation error shown |
 | 9 | `scope = specific`, page not listed | Popup **not** shown |
 | 10 | `scope = specific`, page listed | Popup shown |

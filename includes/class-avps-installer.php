@@ -7,14 +7,14 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
 
-class WAV_Installer {
+class AVPS_Installer {
 
     /**
      * Runs on plugin activation. Stores default settings if none exist yet.
      */
     public static function activate(): void {
-        if ( ! get_option( WAV_Settings::OPTION_KEY ) ) {
-            update_option( WAV_Settings::OPTION_KEY, WAV_Settings::defaults() );
+        if ( ! get_option( AVPS_Settings::OPTION_KEY ) ) {
+            update_option( AVPS_Settings::OPTION_KEY, AVPS_Settings::defaults() );
         }
     }
 

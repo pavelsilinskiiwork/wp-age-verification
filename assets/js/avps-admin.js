@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function () {
 
-    var form = document.getElementById('wav-settings-form');
+    var form = document.getElementById('avps-settings-form');
     if (!form) {
         return;
     }
@@ -13,14 +13,14 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function refreshConditionalFields() {
         var scope = form.querySelector('input[name="scope"]:checked');
-        setRowsVisible('.wav-scope-specific', scope && scope.value === 'specific');
+        setRowsVisible('.avps-scope-specific', scope && scope.value === 'specific');
 
         var type = form.querySelector('input[name="verification_type"]:checked');
-        setRowsVisible('.wav-type-buttons', type && type.value === 'buttons');
+        setRowsVisible('.avps-type-buttons', type && type.value === 'buttons');
 
         var decline = form.querySelector('input[name="decline_action"]:checked');
-        setRowsVisible('.wav-decline-redirect', decline && decline.value === 'redirect');
-        setRowsVisible('.wav-decline-block', decline && decline.value === 'block');
+        setRowsVisible('.avps-decline-redirect', decline && decline.value === 'redirect');
+        setRowsVisible('.avps-decline-block', decline && decline.value === 'block');
     }
 
     form.addEventListener('change', function (e) {
@@ -31,8 +31,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
     refreshConditionalFields();
 
-    var notice = document.getElementById('wav-notice');
-    var spinner = document.getElementById('wav-spinner');
+    var notice = document.getElementById('avps-notice');
+    var spinner = document.getElementById('avps-spinner');
 
     function showNotice(message, isError) {
         notice.className = 'notice ' + (isError ? 'notice-error' : 'notice-success');
@@ -44,22 +44,22 @@ document.addEventListener('DOMContentLoaded', function () {
         e.preventDefault();
 
         var data = new FormData(form);
-        data.append('action', 'wav_save_settings');
-        data.append('nonce', wavAdmin.nonce);
+        data.append('action', 'avps_save_settings');
+        data.append('nonce', avpsAdmin.nonce);
 
         spinner.classList.add('is-active');
 
-        fetch(wavAdmin.ajaxUrl, { method: 'POST', body: new URLSearchParams(data) })
+        fetch(avpsAdmin.ajaxUrl, { method: 'POST', body: new URLSearchParams(data) })
             .then(function (r) { return r.json(); })
             .then(function (response) {
                 if (response.success) {
-                    showNotice((response.data && response.data.message) || wavAdmin.saved, false);
+                    showNotice((response.data && response.data.message) || avpsAdmin.saved, false);
                 } else {
-                    showNotice((response.data && response.data.message) || wavAdmin.error, true);
+                    showNotice((response.data && response.data.message) || avpsAdmin.error, true);
                 }
             })
             .catch(function () {
-                showNotice(wavAdmin.error, true);
+                showNotice(avpsAdmin.error, true);
             })
             .finally(function () {
                 spinner.classList.remove('is-active');

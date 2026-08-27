@@ -1,5 +1,5 @@
 /* Overlay - covers the whole screen */
-.wav-overlay {
+.avps-overlay {
     position: fixed;
     top: 0;
     left: 0;
@@ -12,12 +12,12 @@
     background: rgba(0, 0, 0, 0.85); /* overridden by inline style from settings */
 }
 
-body.wav-lock {
+body.avps-lock {
     overflow: hidden;
 }
 
 /* Popup container */
-.wav-popup {
+.avps-popup {
     max-width: 480px;
     width: 90%;
     padding: 40px;
@@ -27,31 +27,31 @@ body.wav-lock {
 }
 
 /* Light theme */
-.wav-style-light .wav-popup {
+.avps-style-light .avps-popup {
     background: #ffffff;
     color: #1a1a1a;
 }
 
 /* Dark theme */
-.wav-style-dark .wav-popup {
+.avps-style-dark .avps-popup {
     background: #1a1a1a;
     color: #ffffff;
 }
 
-.wav-title {
+.avps-title {
     margin: 0 0 16px;
     font-size: 24px;
     line-height: 1.3;
 }
 
-.wav-description {
+.avps-description {
     margin: 0 0 24px;
     font-size: 15px;
     line-height: 1.5;
 }
 
 /* Buttons */
-.wav-btn {
+.avps-btn {
     display: inline-block;
     padding: 12px 32px;
     border: none;
@@ -61,19 +61,19 @@ body.wav-lock {
     margin: 8px;
 }
 
-.wav-btn-yes {
+.avps-btn-yes {
     background: #2271b1;
     color: #fff;
 }
 
-.wav-btn-no {
+.avps-btn-no {
     background: transparent;
     color: inherit;
     border: 1px solid currentColor;
 }
 
 /* Date input */
-#wav-birthdate {
+#avps-birthdate {
     width: 100%;
     padding: 10px;
     font-size: 16px;
@@ -84,14 +84,14 @@ body.wav-lock {
 }
 
 /* Error */
-.wav-error {
+.avps-error {
     color: #d63638;
     font-size: 14px;
     margin-bottom: 12px;
 }
 
 /* Blocked state */
-.wav-blocked p {
+.avps-blocked p {
     margin: 0;
     font-size: 16px;
     line-height: 1.5;
@@ -99,11 +99,11 @@ body.wav-lock {
 
 /* Mobile */
 @media (max-width: 480px) {
-    .wav-popup {
+    .avps-popup {
         padding: 24px 16px;
     }
 
-    .wav-btn {
+    .avps-btn {
         display: block;
         width: 100%;
         margin: 8px 0;

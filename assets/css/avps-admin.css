@@ -1,20 +1,20 @@
-.wav-admin-wrap h2.title {
+.avps-admin-wrap h2.title {
     margin-top: 2em;
     padding-top: 1em;
     border-top: 1px solid #dcdcde;
 }
 
-.wav-admin-wrap select[multiple] {
+.avps-admin-wrap select[multiple] {
     min-width: 320px;
     max-width: 100%;
 }
 
-.wav-admin-wrap #wav-spinner.spinner {
+.avps-admin-wrap #avps-spinner.spinner {
     float: none;
     margin-top: 0;
     vertical-align: middle;
 }
 
-.wav-admin-wrap #wav-notice {
+.avps-admin-wrap #avps-notice {
     margin: 15px 0;
 }

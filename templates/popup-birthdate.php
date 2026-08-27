@@ -12,25 +12,25 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
 ?>
-<div id="wav-overlay" class="wav-overlay wav-style-<?php echo esc_attr( $style ); ?>" style="background: <?php echo esc_attr( $overlay_color ); ?>;">
-    <div class="wav-popup">
-        <h2 class="wav-title"><?php echo esc_html( $title ); ?></h2>
-        <p class="wav-description">
+<div id="avps-overlay" class="avps-overlay avps-style-<?php echo esc_attr( $style ); ?>" style="background: <?php echo esc_attr( $overlay_color ); ?>;">
+    <div class="avps-popup">
+        <h2 class="avps-title"><?php echo esc_html( $title ); ?></h2>
+        <p class="avps-description">
             <?php
             printf(
                 /* translators: %d: minimum age */
-                esc_html__( 'You must be %d+ to enter this site. Please enter your date of birth.', 'wp-age-verification' ),
+                esc_html__( 'You must be %d+ to enter this site. Please enter your date of birth.', 'age-verification-by-pavel-silinskii' ),
                 (int) $minimum_age
             );
             ?>
         </p>
-        <div class="wav-birthdate-form">
-            <input type="date" id="wav-birthdate" name="birthdate"
-                   max="<?php echo esc_attr( date( 'Y-m-d' ) ); ?>"
+        <div class="avps-birthdate-form">
+            <input type="date" id="avps-birthdate" name="birthdate"
+                   max="<?php echo esc_attr( current_time( 'Y-m-d' ) ); ?>"
                    placeholder="YYYY-MM-DD">
-            <p class="wav-error" id="wav-error" style="display:none;"></p>
-            <button type="button" class="wav-btn wav-btn-yes" id="wav-submit">
-                <?php esc_html_e( 'Enter Site', 'wp-age-verification' ); ?>
+            <p class="avps-error" id="avps-error" style="display:none;"></p>
+            <button type="button" class="avps-btn avps-btn-yes" id="avps-submit">
+                <?php esc_html_e( 'Enter Site', 'age-verification-by-pavel-silinskii' ); ?>
             </button>
         </div>
     </div>

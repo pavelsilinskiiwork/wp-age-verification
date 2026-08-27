@@ -1,8 +1,8 @@
-=== WP Age Verification ===
+=== Age Verification by Pavel Silinskii ===
 Contributors: pavelsilinskii
 Tags: age verification, age gate, popup, restrict content, date of birth
 Requires at least: 5.8
-Tested up to: 6.7
+Tested up to: 7.1
 Requires PHP: 7.4
 Stable tag: 1.0.0
 License: GPLv2 or later
@@ -12,7 +12,7 @@ Age verification popup for WordPress. Supports Yes/No and date of birth verifica
 
 == Description ==
 
-WP Age Verification shows a verification popup when a visitor enters your site or specific pages. When the visitor confirms their age, the choice is remembered in a cookie. When they decline, the page is blocked with a message or the visitor is redirected elsewhere.
+Age Verification by Pavel Silinskii shows a verification popup when a visitor enters your site or specific pages. When the visitor confirms their age, the choice is remembered in a cookie. When they decline, the page is blocked with a message or the visitor is redirected elsewhere.
 
 = Features =
 
@@ -23,11 +23,11 @@ WP Age Verification shows a verification popup when a visitor enters your site o
 * Configurable cookie duration
 * Light and dark popup styles, custom overlay color
 * Fully translatable, server-side age validation
-* No data collected: only a single `wav_verified` cookie is stored
+* No data collected: only a single `avps_verified` cookie is stored
 
 == Installation ==
 
-1. Upload the `wp-age-verification` folder to `/wp-content/plugins/`, or install through the Plugins screen.
+1. Upload the `age-verification-by-pavel-silinskii` folder to `/wp-content/plugins/`, or install through the Plugins screen.
 2. Activate the plugin through the **Plugins** menu.
 3. Go to **Settings → Age Verification** to configure the popup.
 
@@ -43,7 +43,7 @@ The submitted date is validated on the server and the full number of years betwe
 
 = What data does the plugin store? =
 
-Only plugin settings (one option row) and a single `wav_verified` cookie in the visitor's browser. Everything is removed on uninstall.
+Only plugin settings (one option row) and a single `avps_verified` cookie in the visitor's browser. Everything is removed on uninstall.
 
 == Screenshots ==
 

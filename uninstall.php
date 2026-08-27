@@ -3,4 +3,4 @@ if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {
     exit;
 }
 
-delete_option( 'wav_settings' );
+delete_option( 'avps_settings' );

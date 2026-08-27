@@ -1,15 +1,17 @@
 document.addEventListener('DOMContentLoaded', function () {
 
-    var overlay = document.getElementById('wav-overlay');
+    var overlay = document.getElementById('avps-overlay');
     if (!overlay) {
         return;
     }
 
-    document.body.classList.add('wav-lock');
+    var i18n = (avpsData && avpsData.i18n) || {};
 
-    var yesBtn = document.querySelector('.wav-btn-yes:not(#wav-submit)');
-    var noBtn = document.querySelector('.wav-btn-no');
-    var submitBtn = document.getElementById('wav-submit');
+    document.body.classList.add('avps-lock');
+
+    var yesBtn = document.querySelector('.avps-btn-yes:not(#avps-submit)');
+    var noBtn = document.querySelector('.avps-btn-no');
+    var submitBtn = document.getElementById('avps-submit');
 
     if (yesBtn) {
         yesBtn.addEventListener('click', function () {
@@ -25,9 +27,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
     if (submitBtn) {
         submitBtn.addEventListener('click', function () {
-            var birthdate = document.getElementById('wav-birthdate').value;
+            var birthdate = document.getElementById('avps-birthdate').value;
             if (!birthdate) {
-                showError(wavData.i18n && wavData.i18n.enterDate ? wavData.i18n.enterDate : 'Please enter your date of birth.');
+                showError(i18n.enterDate || 'Please enter your date of birth.');
                 return;
             }
             sendVerification({ birthdate: birthdate });
@@ -35,14 +37,14 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function sendVerification(data) {
-        var body = { action: 'wav_verify', nonce: wavData.nonce };
+        var body = { action: 'avps_verify', nonce: avpsData.nonce };
         for (var key in data) {
             if (Object.prototype.hasOwnProperty.call(data, key)) {
                 body[key] = data[key];
             }
         }
 
-        fetch(wavData.ajaxUrl, {
+        fetch(avpsData.ajaxUrl, {
             method: 'POST',
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
             body: new URLSearchParams(body)
@@ -51,7 +53,7 @@ document.addEventListener('DOMContentLoaded', function () {
             .then(function (response) {
                 if (response.success) {
                     overlay.style.display = 'none';
-                    document.body.classList.remove('wav-lock');
+                    document.body.classList.remove('avps-lock');
                     return;
                 }
 
@@ -63,26 +65,55 @@ document.addEventListener('DOMContentLoaded', function () {
                     showBlocked(payload.message);
                 } else {
                     showError(payload.message);
+                    if (payload.lock) {
+                        lockBirthdate();
+                    }
                 }
             })
             .catch(function () {
-                showError('Verification failed. Please try again.');
+                showError(i18n.failed || 'Verification failed. Please try again.');
             });
     }
 
     function showError(message) {
-        var err = document.getElementById('wav-error');
+        var err = document.getElementById('avps-error');
         if (err) {
             err.textContent = message;
             err.style.display = 'block';
         }
     }
 
+    /**
+     * Age check failed: disable the date field and turn the submit button
+     * into a "refresh page" action so the visitor cannot keep retrying.
+     */
+    function lockBirthdate() {
+        var input = document.getElementById('avps-birthdate');
+        if (input) {
+            input.disabled = true;
+        }
+
+        var btn = document.getElementById('avps-submit');
+        if (!btn || btn.dataset.avpsLocked === '1') {
+            return;
+        }
+
+        // Replace the node to drop the original submit listener.
+        var reloadBtn = btn.cloneNode(false);
+        reloadBtn.dataset.avpsLocked = '1';
+        reloadBtn.textContent = i18n.reload || 'Refresh page';
+        reloadBtn.addEventListener('click', function () {
+            window.location.reload();
+        });
+        btn.parentNode.replaceChild(reloadBtn, btn);
+    }
+
     function showBlocked(message) {
         var popup = document.createElement('div');
-        popup.className = 'wav-popup wav-blocked';
+        popup.className = 'avps-popup avps-blocked';
         var text = document.createElement('p');
-        text.textContent = message;
+        // Server-sanitized with wp_kses_post(), safe to render as HTML.
+        text.innerHTML = message;
         popup.appendChild(text);
         overlay.innerHTML = '';
         overlay.appendChild(popup);
