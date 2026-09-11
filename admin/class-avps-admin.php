@@ -20,10 +20,10 @@ class AVPS_Admin {
 
     public function add_menu(): void {
         add_options_page(
-            __( 'Age Verification', 'age-verification-by-pavel-silinskii' ),
-            __( 'Age Verification', 'age-verification-by-pavel-silinskii' ),
+            __( 'Age Verification', 'pavel-silinskii-age-verification' ),
+            __( 'Age Verification', 'pavel-silinskii-age-verification' ),
             'manage_options',
-            'age-verification-by-pavel-silinskii',
+            'pavel-silinskii-age-verification',
             [ $this, 'render_page' ]
         );
     }
@@ -41,7 +41,7 @@ class AVPS_Admin {
     }
 
     public function enqueue_assets( string $hook ): void {
-        if ( 'settings_page_age-verification-by-pavel-silinskii' !== $hook ) {
+        if ( 'settings_page_pavel-silinskii-age-verification' !== $hook ) {
             return;
         }
 
@@ -63,8 +63,8 @@ class AVPS_Admin {
         wp_localize_script( 'avps-admin', 'avpsAdmin', [
             'ajaxUrl' => admin_url( 'admin-ajax.php' ),
             'nonce'   => wp_create_nonce( self::NONCE_ACTION ),
-            'saved'   => __( 'Settings saved.', 'age-verification-by-pavel-silinskii' ),
-            'error'   => __( 'Could not save settings.', 'age-verification-by-pavel-silinskii' ),
+            'saved'   => __( 'Settings saved.', 'pavel-silinskii-age-verification' ),
+            'error'   => __( 'Could not save settings.', 'pavel-silinskii-age-verification' ),
         ] );
     }
 
@@ -73,7 +73,7 @@ class AVPS_Admin {
      */
     public function save_settings(): void {
         if ( ! current_user_can( 'manage_options' ) ) {
-            wp_send_json_error( [ 'message' => __( 'Permission denied.', 'age-verification-by-pavel-silinskii' ) ], 403 );
+            wp_send_json_error( [ 'message' => __( 'Permission denied.', 'pavel-silinskii-age-verification' ) ], 403 );
         }
 
         check_ajax_referer( self::NONCE_ACTION, 'nonce' );
@@ -82,7 +82,7 @@ class AVPS_Admin {
 
         AVPS_Settings::save( $data );
 
-        wp_send_json_success( [ 'message' => __( 'Settings saved.', 'age-verification-by-pavel-silinskii' ) ] );
+        wp_send_json_success( [ 'message' => __( 'Settings saved.', 'pavel-silinskii-age-verification' ) ] );
     }
 
     public function render_page(): void {

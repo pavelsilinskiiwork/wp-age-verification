@@ -1,6 +1,6 @@
 <?php
 /**
- * Settings storage for Age Verification by Pavel Silinskii.
+ * Settings storage for Pavel Silinskii Age Verification.
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -24,12 +24,12 @@ class AVPS_Settings {
             'specific_categories' => [],
             'decline_action'      => 'block',
             'redirect_url'        => 'https://google.com',
-            'blocked_message'     => __( 'You must be 18 years or older to access this website.', 'age-verification-by-pavel-silinskii' ),
+            'blocked_message'     => __( 'You must be 18 years or older to access this website.', 'pavel-silinskii-age-verification' ),
             'cookie_duration'     => 30,
-            'popup_title'         => __( 'Age Verification', 'age-verification-by-pavel-silinskii' ),
-            'popup_description'   => __( 'This website contains age-restricted content. By entering, you accept our terms and confirm your age is 18 years or older.', 'age-verification-by-pavel-silinskii' ),
-            'button_yes_text'     => __( "Yes, I'm 18+", 'age-verification-by-pavel-silinskii' ),
-            'button_no_text'      => __( 'No, Exit', 'age-verification-by-pavel-silinskii' ),
+            'popup_title'         => __( 'Age Verification', 'pavel-silinskii-age-verification' ),
+            'popup_description'   => __( 'This website contains age-restricted content. By entering, you accept our terms and confirm your age is 18 years or older.', 'pavel-silinskii-age-verification' ),
+            'button_yes_text'     => __( "Yes, I'm 18+", 'pavel-silinskii-age-verification' ),
+            'button_no_text'      => __( 'No, Exit', 'pavel-silinskii-age-verification' ),
             'overlay_color'       => 'rgba(0,0,0,0.85)',
             'popup_style'         => 'light',
         ];

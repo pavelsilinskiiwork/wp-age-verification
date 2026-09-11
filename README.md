@@ -1,4 +1,4 @@
-# Age Verification by Pavel Silinskii
+# Pavel Silinskii Age Verification
 
 ![WordPress](https://img.shields.io/badge/WordPress-5.8%2B-21759B?logo=wordpress&logoColor=white)
 ![PHP](https://img.shields.io/badge/PHP-7.4%2B-777BB4?logo=php&logoColor=white)
@@ -38,7 +38,7 @@ Age verification popup for WordPress. Shows a verification gate when a visitor e
 - **Server-side age validation** — the birth date is validated and the age recalculated in PHP, not trusted from the browser
 - **Remembered choice** — a single `avps_verified` cookie with configurable duration
 - **Light / dark popup styles** and a custom overlay color
-- **Fully translatable** — text domain `age-verification-by-pavel-silinskii`, `.pot` included
+- **Fully translatable** — text domain `pavel-silinskii-age-verification`, `.pot` included
 - **Clean uninstall** — the single option row is removed on delete
 
 ---
@@ -58,7 +58,7 @@ Age verification popup for WordPress. Shows a verification gate when a visitor e
 ### Manual
 
 1. Download or clone this repository.
-2. Upload the `age-verification-by-pavel-silinskii` folder to `/wp-content/plugins/`.
+2. Upload the `pavel-silinskii-age-verification` folder to `/wp-content/plugins/`.
 3. Activate the plugin in **WordPress Admin → Plugins**.
 4. Go to **Settings → Age Verification** to configure it.
 
@@ -66,7 +66,7 @@ Age verification popup for WordPress. Shows a verification gate when a visitor e
 
 ```bash
 cd wp-content/plugins
-git clone https://github.com/pavelsilinskiiwork/age-verification-by-pavel-silinskii.git
+git clone https://github.com/pavelsilinskiiwork/wp-age-verification.git pavel-silinskii-age-verification
 ```
 
 Then activate in **WordPress Admin → Plugins**.
@@ -229,8 +229,8 @@ A plain `error` (empty or malformed date) leaves the field editable.
 ## Project Structure
 
 ```
-age-verification-by-pavel-silinskii/
-├── age-verification-by-pavel-silinskii.php        # Main plugin file, constants, hooks
+pavel-silinskii-age-verification/
+├── pavel-silinskii-age-verification.php        # Main plugin file, constants, hooks
 ├── readme.txt                     # WordPress.org readme
 ├── README.md                      # This file
 ├── uninstall.php                  # Removes the avps_settings option
@@ -253,7 +253,7 @@ age-verification-by-pavel-silinskii/
 │       ├── avps-frontend.js        # Popup behavior, fetch, validation
 │       └── avps-admin.js           # Conditional fields, AJAX save
 └── languages/
-    └── age-verification-by-pavel-silinskii.pot    # Translation template
+    └── pavel-silinskii-age-verification.pot    # Translation template
 ```
 
 ---

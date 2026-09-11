@@ -85,9 +85,9 @@ class AVPS_Frontend {
             'nonce'   => wp_create_nonce( 'avps_nonce' ),
             'type'    => $settings['verification_type'],
             'i18n'    => [
-                'enterDate' => __( 'Please enter your date of birth.', 'age-verification-by-pavel-silinskii' ),
-                'reload'    => __( 'Refresh page', 'age-verification-by-pavel-silinskii' ),
-                'failed'    => __( 'Verification failed. Please try again.', 'age-verification-by-pavel-silinskii' ),
+                'enterDate' => __( 'Please enter your date of birth.', 'pavel-silinskii-age-verification' ),
+                'reload'    => __( 'Refresh page', 'pavel-silinskii-age-verification' ),
+                'failed'    => __( 'Verification failed. Please try again.', 'pavel-silinskii-age-verification' ),
             ],
         ] );
     }
@@ -131,7 +131,7 @@ class AVPS_Frontend {
             if ( '' === $birthdate || ! $this->is_valid_date( $birthdate ) ) {
                 wp_send_json_error( [
                     'action'  => 'error',
-                    'message' => __( 'Please enter a valid date of birth.', 'age-verification-by-pavel-silinskii' ),
+                    'message' => __( 'Please enter a valid date of birth.', 'pavel-silinskii-age-verification' ),
                 ] );
             }
 
@@ -148,7 +148,7 @@ class AVPS_Frontend {
                 'lock'    => true,
                 'message' => sprintf(
                     /* translators: %d: minimum age */
-                    __( 'Sorry, you must be at least %d years old to enter this site.', 'age-verification-by-pavel-silinskii' ),
+                    __( 'Sorry, you must be at least %d years old to enter this site.', 'pavel-silinskii-age-verification' ),
                     $minimum_age
                 ),
             ] );

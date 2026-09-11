@@ -2,15 +2,15 @@
 # This file is distributed under the GPL-2.0-or-later license.
 msgid ""
 msgstr ""
-"Project-Id-Version: Age Verification by Pavel Silinskii 1.0.0\n"
-"Report-Msgid-Bugs-To: https://github.com/pavelsilinskiiwork/age-verification-by-pavel-silinskii\n"
+"Project-Id-Version: Pavel Silinskii Age Verification 1.0.0\n"
+"Report-Msgid-Bugs-To: https://github.com/pavelsilinskiiwork/wp-age-verification\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "POT-Creation-Date: 2026-08-27T00:00:00+00:00\n"
-"X-Domain: age-verification-by-pavel-silinskii\n"
+"X-Domain: pavel-silinskii-age-verification\n"
 
 msgid "Age Verification"
 msgstr ""

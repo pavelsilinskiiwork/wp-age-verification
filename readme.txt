@@ -1,4 +1,4 @@
-=== Age Verification by Pavel Silinskii ===
+=== Pavel Silinskii Age Verification ===
 Contributors: pavelsilinskii
 Tags: age verification, age gate, popup, restrict content, date of birth
 Requires at least: 5.8
@@ -12,7 +12,7 @@ Age verification popup for WordPress. Supports Yes/No and date of birth verifica
 
 == Description ==
 
-Age Verification by Pavel Silinskii shows a verification popup when a visitor enters your site or specific pages. When the visitor confirms their age, the choice is remembered in a cookie. When they decline, the page is blocked with a message or the visitor is redirected elsewhere.
+Pavel Silinskii Age Verification shows a verification popup when a visitor enters your site or specific pages. When the visitor confirms their age, the choice is remembered in a cookie. When they decline, the page is blocked with a message or the visitor is redirected elsewhere.
 
 = Features =
 
@@ -27,7 +27,7 @@ Age Verification by Pavel Silinskii shows a verification popup when a visitor en
 
 == Installation ==
 
-1. Upload the `age-verification-by-pavel-silinskii` folder to `/wp-content/plugins/`, or install through the Plugins screen.
+1. Upload the `pavel-silinskii-age-verification` folder to `/wp-content/plugins/`, or install through the Plugins screen.
 2. Activate the plugin through the **Plugins** menu.
 3. Go to **Settings → Age Verification** to configure the popup.
 

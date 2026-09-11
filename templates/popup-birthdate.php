@@ -19,7 +19,7 @@ if ( ! defined( 'ABSPATH' ) ) {
             <?php
             printf(
                 /* translators: %d: minimum age */
-                esc_html__( 'You must be %d+ to enter this site. Please enter your date of birth.', 'age-verification-by-pavel-silinskii' ),
+                esc_html__( 'You must be %d+ to enter this site. Please enter your date of birth.', 'pavel-silinskii-age-verification' ),
                 (int) $minimum_age
             );
             ?>
@@ -30,7 +30,7 @@ if ( ! defined( 'ABSPATH' ) ) {
                    placeholder="YYYY-MM-DD">
             <p class="avps-error" id="avps-error" style="display:none;"></p>
             <button type="button" class="avps-btn avps-btn-yes" id="avps-submit">
-                <?php esc_html_e( 'Enter Site', 'age-verification-by-pavel-silinskii' ); ?>
+                <?php esc_html_e( 'Enter Site', 'pavel-silinskii-age-verification' ); ?>
             </button>
         </div>
     </div>
